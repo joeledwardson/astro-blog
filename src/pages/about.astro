@@ -1,7 +1,7 @@
 ---
-import '../styles/global.css';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
 const pageTitle: string = "Hello There";
 
 const identity = {
@@ -21,8 +21,7 @@ const skillColor = "orange";
 
 <html lang="en">
   <head>
-    <style define:vars={{pls: skillColor}}>
-    
+    <style define:vars={{ pls: skillColor }}>
       .container {
         display: flex;
         flex-direction: column;
@@ -68,5 +67,8 @@ const skillColor = "orange";
       </p>
     </div>
     <Footer />
+    <script>
+      import "../scripts/menu.js";
+    </script>
   </body>
 </html>
