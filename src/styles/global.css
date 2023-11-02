@@ -25,7 +25,6 @@ h1 {
 .hamburger {
     padding-right: 20px;
     cursor: progress;
-    display: none;
 }
 
 .hamburger .line {
@@ -77,10 +76,8 @@ h1 {
         display: inline-block;
         padding: 15px 20px;
     }
-}
 
-@media screen and (max-width: 636px) {
     .hamburger {
-        display: block;
+        display: none;
     }
 }

@@ -2,7 +2,8 @@
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-const pageTitle: string = "Hello There";
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle: string = "About me";
 
 const identity = {
   firstName: "Sarah",
@@ -19,56 +20,35 @@ const goal = 3;
 const skillColor = "orange";
 ---
 
-<html lang="en">
-  <head>
-    <style define:vars={{ pls: skillColor }}>
-      .container {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-      }
-      .skill {
-        color: var(--pls);
-        font-weight: bold;
-      }
-    </style>
-    <title>{pageTitle}</title>
-  </head>
-  <body>
-    <div class="container">
-      <Header />
-      <h1>{pageTitle}</h1>
+<BaseLayout pageTitle={pageTitle}>
+  <style define:vars={{ pls: skillColor }}>
+    .skill {
+      color: var(--pls);
+      font-weight: bold;
+    }
+  </style>
+  <p>My skills are:</p>
+  <ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
 
-      <h2>... and my new Astro site!</h2>
-      <p>My skills are:</p>
-      <ul>
-        {skills.map((skill) => <li class="skill">{skill}</li>)}
-      </ul>
-      <h2>... and my new Astro site!</h2>
-
-      {
-        happy && (
-          <p>
-            <strong>Happy boi</strong>
-          </p>
-        )
-      }
-      {finished && <p>I am done</p>}
-      <p>I have {goal} goals</p>
-
+  {
+    happy && (
       <p>
-        I am working through Astro's introductory tutorial. This is the second
-        page on my website, and it's the first one I built myself!
+        <strong>Happy boi</strong>
       </p>
+    )
+  }
+  {finished && <p>I am done</p>}
+  <p>I have {goal} goals</p>
 
-      <p>
-        This site will update as I complete more of the tutorial, so keep
-        checking back and see how my journey is going!
-      </p>
-    </div>
-    <Footer />
-    <script>
-      import "../scripts/menu.js";
-    </script>
-  </body>
-</html>
+  <p>
+    I am working through Astro's introductory tutorial. This is the second page
+    on my website, and it's the first one I built myself!
+  </p>
+
+  <p>
+    This site will update as I complete more of the tutorial, so keep checking
+    back and see how my journey is going!
+  </p>
+</BaseLayout>
