@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { MarkdownFrontMatter } from "../../layouts/MarkdownPostLayout.astro";
+const allPosts = await Astro.glob<MarkdownFrontMatter>("../posts/*.md");
+const uniqueTags = Array.from(
+    new Set(allPosts.map((p) => p.frontmatter.tags ?? []).flat()),
+);
+console.log("got some unique tags: ", uniqueTags);
+---
+
+<BaseLayout pageTitle={"Tags"}>
+    {
+        uniqueTags.map((tag) => (
+            <li class="tag">
+                <a href={`/tags/${tag}`}>{tag}</a>{" "}
+            </li>
+        ))
+    }
+</BaseLayout>
