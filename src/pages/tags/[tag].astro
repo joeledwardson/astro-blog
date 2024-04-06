@@ -2,28 +2,48 @@
 import type { MarkdownInstance } from "astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { MarkdownFrontMatter } from "../../layouts/MarkdownPostLayout.astro";
+import Blogpost from "../../components/Blogpost.astro";
 
 export async function getStaticPaths() {
-  const allPosts: MarkdownInstance<MarkdownFrontMatter>[] = await Astro.glob<MarkdownFrontMatter>("../posts/*.md");
-  console.log('all posts: ', allPosts)
-  return [
-    {params: {tag: "astro"}, props: {posts: allPosts}},
-    {params: {tag: "successes"}, props: {posts: allPosts}},
-    {params: {tag: "community"}, props: {posts: allPosts}},
-    {params: {tag: "blogging"}, props: {posts: allPosts}},
-    {params: {tag: "setbacks"}, props: {posts: allPosts}},
-    {params: {tag: "learning in public"}, props: {posts: allPosts}}
-  ]
+  const allPosts: MarkdownInstance<MarkdownFrontMatter>[] =
+    await Astro.glob("../posts/*.md");
+
+  console.log(
+    "all posts: ",
+    allPosts.map((p) => ({ url: p.url, tags: p.frontmatter.tags })),
+  );
+  const uniqueTags = Array.from(
+    new Set(allPosts.map((p) => p.frontmatter.tags ?? []).flat()),
+  );
+  console.log("unique tags:", uniqueTags);
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post) =>
+      post.frontmatter.tags?.includes(tag),
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
 }
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
-const filteredPosts = posts.filter((post) => post.frontmatter.tags?.includes(tag));
+const filteredPosts = posts.filter((post) =>
+  post.frontmatter.tags?.includes(tag),
+);
 ---
 
 <BaseLayout pageTitle={tag}>
   <p>Posts tagged with {tag}</p>
   <ul>
-    {filteredPosts.map((post) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+    {
+      filteredPosts.map((post) => (
+        <li>
+          <Blogpost url={post.url} title={post.frontmatter.title} />
+        </li>
+      ))
+    }
   </ul>
 </BaseLayout>
