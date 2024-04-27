@@ -2,7 +2,7 @@
 
 ---
 
-<button id="themeToggle">
+<button id="themeToggle" class="border-none bg-transparent cursor-pointer hover:scale-125 transition duration-200 group">
     <svg width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path
             class="sun"
@@ -18,11 +18,7 @@
 </button>
 
 <style>
-    #themeToggle {
-        border: 0;
-        background: none;
-    }
-    .sun {
+   .sun {
         fill: pink;
     }
     .moon {
@@ -34,6 +30,11 @@
     }
     :global(.dark) .moon {
         fill: yellowgreen;
+    }
+
+    :global(.dark) .group:hover .moon {
+        fill: green;
+        transition: 0.3s;
     }
 </style>
 
