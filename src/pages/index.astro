@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { MarkdownFrontMatter } from "../layouts/MarkdownPostLayout.astro";
+import Greeting from '../components/greeting';
 const pageTitle = "Hello there";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <h2>My awesome blog subtitle</h2>
-</BaseLayout>
+  <Greeting client:load messages={["hello", "salad", "pls"]} />
+ </BaseLayout>
