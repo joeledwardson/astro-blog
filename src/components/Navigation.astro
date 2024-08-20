@@ -12,5 +12,40 @@ const styleA =
     <a class={styleA} href="/blog/">Blog</a>
     <a class={styleA} href="/tags/">Tags</a>
   </div>
-  <div class="sm:hidden"><Hamburger /></div>
+  <div id="jollof-hamburger" class="sm:hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20">
+      <line
+        class="stroke-2 stroke-gray-800 origin-center"
+        x1="0%"
+        x2="100%"
+        y1="10%"
+        y2="10%"></line>
+      <line
+        class="stroke-2 stroke-gray-800 origin-center"
+        x1="0%"
+        x2="100%"
+        y1="50%"
+        y2="50%"></line>
+      <line
+        class="stroke-2 stroke-gray-800 origin-center"
+        x1="0%"
+        x2="100%"
+        y1="90%"
+        y2="90%"></line>
+    </svg>
+  </div>
 </div>
+
+<script is:inline>
+  const el = document.querySelector("#jollof-hamburger");
+
+  if (!el) {
+    throw new Error("cant find hamburger, shite!");
+  }
+  el.addEventListener("click", (e) => {
+    console.log("hamburger clicked: ", e);
+    const lines = el.querySelectorAll("line");
+    const isOpened = el.classList.toggle("menu-is-open");
+    lines.forEach((line) => line.classList.toggle("rotate-90"));
+  });
+</script>
